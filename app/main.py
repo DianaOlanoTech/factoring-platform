@@ -1,14 +1,17 @@
+from pathlib import Path
+
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 from app.adapters.repositories.in_memory_application_repository import (
     InMemoryApplicationRepository,
 )
 from app.adapters.risk.http_risk_provider import HttpRiskProvider
 from app.api.factoring import router as factoring_router
+from app.api.mock_risk import router as mock_risk_router
 from app.application.factoring_application_service import (
     FactoringApplicationService,
 )
-from app.api.mock_risk import router as mock_risk_router
 
 
 app = FastAPI(
@@ -31,5 +34,15 @@ factoring_service = FactoringApplicationService(
 app.state.factoring_service = factoring_service
 app.state.application_repository = repository
 
+
 app.include_router(factoring_router)
 app.include_router(mock_risk_router)
+
+
+frontend_path = Path(__file__).resolve().parent.parent / "frontend"
+
+app.mount(
+    "/",
+    StaticFiles(directory=frontend_path, html=True),
+    name="frontend",
+)

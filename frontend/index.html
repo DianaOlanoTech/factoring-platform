@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factoring Application</title>
+</head>
+<body>
+    <main>
+        <h1>Factoring Application</h1>
+
+        <form id="application-form">
+            <div>
+                <label for="application-id">Application ID</label>
+                <input
+                    id="application-id"
+                    name="application_id"
+                    type="text"
+                    value="FAC-1001"
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="customer-id">Customer ID</label>
+                <input
+                    id="customer-id"
+                    name="customer_id"
+                    type="text"
+                    value="CUS-101"
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="invoice-amount">Invoice Amount (cents)</label>
+                <input
+                    id="invoice-amount"
+                    name="invoice_amount_cents"
+                    type="number"
+                    min="1"
+                    value="125000"
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="requested-advance">
+                    Requested Advance (cents)
+                </label>
+                <input
+                    id="requested-advance"
+                    name="requested_advance_cents"
+                    type="number"
+                    min="1"
+                    value="90000"
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="due-date">Due Date</label>
+                <input
+                    id="due-date"
+                    name="due_date"
+                    type="date"
+                    value="2026-10-15"
+                    required
+                >
+            </div>
+
+            <button type="submit">Submit Application</button>
+        </form>
+
+        <section id="result" hidden>
+            <h2>Decision</h2>
+
+            <p>
+                <strong>Application ID:</strong>
+                <span id="result-application-id"></span>
+            </p>
+
+            <p>
+                <strong>Decision:</strong>
+                <span id="result-decision"></span>
+            </p>
+
+            <p>
+                <strong>Requested Advance:</strong>
+                <span id="result-requested"></span>
+            </p>
+
+            <p>
+                <strong>Available Advance:</strong>
+                <span id="result-available"></span>
+            </p>
+
+            <p>
+                <strong>Provider Reference:</strong>
+                <span id="result-provider-reference"></span>
+            </p>
+        </section>
+
+        <p id="error" hidden></p>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
