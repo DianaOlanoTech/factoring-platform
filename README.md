@@ -4,6 +4,8 @@ A small factoring decision service built with Python, FastAPI, and TypeScript.
 
 The service receives factoring applications, evaluates them through a mock external risk provider, applies the factoring business rules, and returns a normalized decision.
 
+[Watch the walkthrough video](https://youtu.be/nHuDsGrz7-0)
+
 ## Features
 
 - Submit factoring applications for risk evaluation.
