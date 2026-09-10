@@ -1,10 +1,18 @@
+"""
+Tests for the HTTP risk provider adapter.
+
+This module verifies HTTP request construction, provider response
+normalization, and predictable handling of provider failures and
+unexpected payloads.
+"""
+
 from datetime import date
 from unittest.mock import Mock, patch
 
 import httpx
 import pytest
 
-from app.adapters.risk.exceptions import RiskProviderError
+from app.ports.exceptions import RiskProviderError
 from app.adapters.risk.http_risk_provider import HttpRiskProvider
 from app.domain.models import (
     FactoringApplication,

@@ -1,3 +1,15 @@
+"""
+Application entry point and dependency composition root.
+
+This module creates the FastAPI application, instantiates the concrete
+adapters, wires them into the application service, registers API
+routers, and serves the frontend.
+
+Concrete infrastructure dependencies are assembled here so the core
+application remains independent from FastAPI and infrastructure
+implementations.
+"""
+
 from pathlib import Path
 
 from fastapi import FastAPI
@@ -30,6 +42,7 @@ factoring_service = FactoringApplicationService(
     risk_provider=risk_provider,
     repository=repository,
 )
+
 
 app.state.factoring_service = factoring_service
 app.state.application_repository = repository

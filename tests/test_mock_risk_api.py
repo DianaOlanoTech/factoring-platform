@@ -1,3 +1,11 @@
+"""
+Tests for the mock risk provider.
+
+This module verifies the deterministic approved, review, and declined
+responses used to simulate the external risk provider during development
+and end-to-end testing.
+"""
+
 from fastapi.testclient import TestClient
 
 from app.main import app

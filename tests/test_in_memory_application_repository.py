@@ -1,3 +1,10 @@
+"""
+Tests for the in-memory application repository adapter.
+
+This module verifies that application decisions can be saved, retrieved,
+and replaced by application ID.
+"""
+
 from datetime import date
 
 from app.adapters.repositories.in_memory_application_repository import (

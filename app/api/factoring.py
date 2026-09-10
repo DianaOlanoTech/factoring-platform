@@ -1,3 +1,11 @@
+"""
+HTTP endpoints for factoring applications.
+
+This module is the inbound adapter of the application. It translates
+HTTP requests into domain objects, invokes the application service,
+and translates domain decisions back into HTTP responses.
+"""
+
 from fastapi import APIRouter, Depends, HTTPException
 
 from app.api.dependencies import (
@@ -14,6 +22,7 @@ from app.application.factoring_application_service import (
 from app.domain.models import FactoringApplication
 from app.ports.ports import ApplicationRepository
 
+
 router = APIRouter(
     prefix="/api/factoring",
     tags=["factoring"],
@@ -26,9 +35,27 @@ router = APIRouter(
 )
 def create_application(
     request: FactoringApplicationRequest,
-    service: FactoringApplicationService = Depends(get_factoring_service),
-    repository: ApplicationRepository = Depends(get_application_repository),
+    service: FactoringApplicationService = Depends(
+        get_factoring_service
+    ),
 ) -> FactoringDecisionResponse:
+    """
+    Create and evaluate a factoring application.
+
+    The route validates the HTTP request through Pydantic, converts it
+    into a domain model, delegates the business workflow to the
+    application service, and returns the normalized decision.
+
+    Args:
+        request: Validated HTTP request body.
+        service: Application service injected by FastAPI.
+
+    Returns:
+        Normalized factoring decision represented as an API response.
+
+    Raises:
+        HTTPException: With status 422 when domain validation fails.
+    """
     try:
         application = FactoringApplication(
             application_id=request.application_id,
@@ -37,6 +64,7 @@ def create_application(
             requested_advance_cents=request.requested_advance_cents,
             due_date=request.due_date,
         )
+
     except ValueError as exc:
         raise HTTPException(
             status_code=422,
@@ -53,14 +81,30 @@ def create_application(
         provider_reference=decision.provider_reference,
     )
 
+
 @router.get(
     "/applications/{application_id}",
     response_model=FactoringDecisionResponse,
 )
 def get_application(
     application_id: str,
-    repository: ApplicationRepository = Depends(get_application_repository),
+    repository: ApplicationRepository = Depends(
+        get_application_repository
+    ),
 ) -> FactoringDecisionResponse:
+    """
+    Retrieve a previously stored factoring decision.
+
+    Args:
+        application_id: Identifier of the application to retrieve.
+        repository: Application repository injected by FastAPI.
+
+    Returns:
+        The stored factoring decision.
+
+    Raises:
+        HTTPException: With status 404 when the application does not exist.
+    """
     decision = repository.get_by_application_id(application_id)
 
     if decision is None:

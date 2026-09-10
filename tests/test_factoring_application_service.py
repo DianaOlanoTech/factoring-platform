@@ -1,8 +1,19 @@
+"""
+Tests for the factoring application service.
+
+This module verifies the core factoring business rules, including eligible,
+needs-review, rejected, and integration-error outcomes.
+
+It also defines test doubles for the risk provider and application
+repository ports so the application service can be tested independently
+from HTTP and persistence implementations.
+"""
+
 from datetime import date
 
 import pytest
 
-from app.adapters.risk.exceptions import RiskProviderError
+from app.ports.exceptions import RiskProviderError
 from app.application.factoring_application_service import (
     FactoringApplicationService,
 )
@@ -15,6 +26,13 @@ from app.domain.models import (
 
 
 class FakeRiskProvider:
+    """
+    Test double for the RiskProvider port.
+
+    Allows application service tests to control the risk provider
+    result or simulate provider failures without making HTTP requests.
+    """
+
     def __init__(self, result=None, error=None):
         self.result = result
         self.error = error
@@ -27,6 +45,12 @@ class FakeRiskProvider:
 
 
 class FakeApplicationRepository:
+    """
+    Test double for the ApplicationRepository port.
+
+    Stores saved records in memory so the application service can be
+    tested independently from the real repository implementation.
+    """
     def __init__(self):
         self.saved_records = []
 

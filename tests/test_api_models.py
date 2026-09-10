@@ -1,3 +1,10 @@
+"""
+Tests for the API models.
+
+This module verifies that the Pydantic request and response models
+accept valid data and reject invalid input according to the API contract.
+"""
+
 from datetime import date
 
 import pytest

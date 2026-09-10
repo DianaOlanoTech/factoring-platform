@@ -1,3 +1,10 @@
+"""
+Tests for the domain models.
+
+This module verifies that the core domain models can be created correctly
+and that their business invariants reject invalid values.
+"""
+
 from datetime import date
 
 import pytest
