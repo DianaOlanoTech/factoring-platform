@@ -14,6 +14,10 @@ interface FactoringDecisionResponse {
     provider_reference: string | null;
 }
 
+interface ApiErrorResponse {
+    detail?: string;
+}
+
 const form = document.getElementById(
     "application-form"
 ) as HTMLFormElement;
@@ -80,39 +84,43 @@ form.addEventListener("submit", async (event) => {
             }
         );
 
-        const data: FactoringDecisionResponse =
-            await response.json();
+        const data: unknown = await response.json();
 
         if (!response.ok) {
+            const errorData = data as ApiErrorResponse;
+
             throw new Error(
-                data.decision || "Failed to create application"
+                errorData.detail ||
+                "Failed to create application"
             );
         }
 
+        const decision = data as FactoringDecisionResponse;
+
         document.getElementById(
             "result-application-id"
-        )!.textContent = data.application_id;
+        )!.textContent = decision.application_id;
 
         document.getElementById(
             "result-decision"
-        )!.textContent = data.decision;
+        )!.textContent = decision.decision;
 
         document.getElementById(
             "result-requested"
         )!.textContent =
-            String(data.requested_advance_cents);
+            String(decision.requested_advance_cents);
 
         document.getElementById(
             "result-available"
         )!.textContent =
-            data.available_advance_cents !== null
-                ? String(data.available_advance_cents)
+            decision.available_advance_cents !== null
+                ? String(decision.available_advance_cents)
                 : "N/A";
 
         document.getElementById(
             "result-provider-reference"
         )!.textContent =
-            data.provider_reference ?? "N/A";
+            decision.provider_reference ?? "N/A";
 
         result.hidden = false;
     } catch (err) {
