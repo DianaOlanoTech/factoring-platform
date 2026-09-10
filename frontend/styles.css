@@ -51,6 +51,12 @@ input {
     font-size: 15px;
 }
 
+input:focus {
+    outline: 2px solid #93c5fd;
+    outline-offset: 1px;
+    border-color: #60a5fa;
+}
+
 button {
     width: 100%;
     padding: 12px;
@@ -59,6 +65,8 @@ button {
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
+    background: #2563eb;
+    color: white;
 }
 
 button:hover {

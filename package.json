@@ -1,27 +1,22 @@
 {
   "name": "factoring-platform",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
+  "description": "Factoring decision service built with Python, FastAPI, and TypeScript",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+      "build": "tsc"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DianaOlanoTech/factoring-platform.git"
+      "type": "git",
+      "url": "git+https://github.com/DianaOlanoTech/factoring-platform.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Diana Sofia Olano Montaño",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/DianaOlanoTech/factoring-platform/issues"
+      "url": "https://github.com/DianaOlanoTech/factoring-platform/issues"
   },
   "homepage": "https://github.com/DianaOlanoTech/factoring-platform#readme",
   "devDependencies": {
-    "typescript": "^7.0.2"
+      "typescript": "^7.0.2"
   }
 }
